@@ -1,7 +1,15 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+
+// targets ids of text area of each box
+
+let savedString = localStorage.getItem('savedString');
+let saveBtns = $('.saveBtn');
+// let textarea = $('.description');
+
+function Scheduler () {
+  
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -20,4 +28,26 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
+
+  saveBtns.each(function () {
+    $(this).on('click', function (event) {
+      event.preventDefault();
+      let button = event.target;
+      let div = $(button).parent();
+      let hour = div.attr('id');
+      let textarea = div.find('textarea');
+      let userInput = textarea.val();
+      localStorage.setItem(hour, userInput);
+      console.log(userInput);
+      return userInput;
+    });
+// how to save the userInput to the correct textarea section so when the page is refreshed 
+// the value is still there
+
+  });
+
+
+};
+
+Scheduler();
