@@ -6,10 +6,10 @@
 
 let savedString = localStorage.getItem('savedString');
 let saveBtns = $('.saveBtn');
-// let textarea = $('.description');
+let textarea = $('.description');
 
 function Scheduler () {
-  
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -29,7 +29,6 @@ function Scheduler () {
   //
   // TODO: Add code to display the current date in the header of the page.
 
-
   saveBtns.each(function () {
     $(this).on('click', function (event) {
       event.preventDefault();
@@ -40,14 +39,22 @@ function Scheduler () {
       let userInput = textarea.val();
       localStorage.setItem(hour, userInput);
       console.log(userInput);
-      return userInput;
+      
     });
+  });
 // how to save the userInput to the correct textarea section so when the page is refreshed 
 // the value is still there
+// uses the key to retrieve the value the userInputed
+  textarea.each(function() {
+    let hour = $(this).closest('.time-block').attr('id');
+    let savedInput = localStorage.getItem(hour);
+    console.log(hour)
 
-  });
-
-
+    if (savedInput) {
+      $(this).val(savedInput);
+    }
+  })
 };
+
 
 Scheduler();
